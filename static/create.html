@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create debug page</title>
+</head>
+<body>
+    <h1>Link</h1>
+    <form action="/link" method="post">
+        <input type="text" name="name" placeholder="name" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+        <input type="url" name="uri" placeholder="uri" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+        <input type="submit" value="Submit" class="btn btn-primary" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+    </form>
+    <br>
+    <br>
+    <h1>Post</h1>
+    <form action="/post" method="post">
+        <textarea name="content" id="" cols="30" rows="10" style="width: 100%; max-width: 500px; max-height: 150px; margin-bottom: 5px;" placeholder="comment" class="form-control"></textarea><br>
+        <input type="submit" value="Submit" class="btn btn-primary" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+    </form>
+    <br>
+    <h1>Announce</h1>
+    <form action="/announce" method="post">
+        <textarea name="content" id="" cols="30" rows="10" style="width: 100%; max-width: 500px; max-height: 150px; margin-bottom: 5px;" placeholder="comment" class="form-control"></textarea><br>
+        <input type="datetime" name="expires" placeholder="expires" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+
+        <input type="submit" value="Submit" class="btn btn-primary" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+    </form><br>
+    <form action="/announce" method="delete">
+        <input type="submit" value="delete announce" class="btn btn-primary" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+    </form>
+    <br>
+</body>
+</html>

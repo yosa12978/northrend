@@ -1,0 +1,11 @@
+{
+    "db": {
+        "uri": "mongodb://root:root@localhost:27017",
+        "dbName": "northrendDb"
+    },
+    "api": {
+        "addr": "0.0.0.0:5000",
+        "logLevel": "debug",
+        "jwtSecret": "9bd7876411284f1393d22df9fa334f32"
+    }
+}

@@ -1,0 +1,57 @@
+{{ template "header" .}}
+
+        <div class="card" style="width: 18rem; border-radius: 50px;">
+            <div class="card-body">
+              <img src="/assets/me.jpg" style="max-width: 100px; max-height: 100px; height: 100%; width: 100%; border-radius: 50px;"></img>
+              <br><br>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Yusuf Yakubov</h6>
+              <p class="card-text">Hi! My name is Yusuf and you are on my personal website</p>
+              
+            </div>
+          </div>
+          <br>
+
+        <!-- Announcement -->
+        {{if .announce}}
+        <div class="card text-bg-dark mb-3">
+            <div class="card-header"><b>Announcement ⚠️</b></div>
+            <div class="card-body">
+                <p class="card-text">{{.announce.Content}}</p>
+            </div>
+        </div>
+        <br>
+        {{end}}
+
+        <!-- Links -->
+        {{if .links}}
+        {{range .links}}
+        <div class="card text-bg-light mb-3" style="border-radius: 50px;">
+            <a href="/portal/?uri={{.Uri}}" class="link link-dark">
+            <div class="card-body"><b>
+                <p class="card-text">{{.Name}}</p></b>
+            </div>
+            </a>
+        </div>
+        {{end}}
+        {{end}}
+        <br>
+
+        {{if .posts}}
+        <h1 class="card"><b>Blog Posts</b></h1>
+        <!-- Blog post -->
+        {{range .posts}}
+        <div class="card text-bg-light mb-3">
+            <!-- <div class="card-header"><b>Title 1</b></div> -->
+            <div class="card-body">
+                <p class="card-text">{{.Content}}</p>
+            </div>
+            <div class="card-footer text-body-secondary">
+                <small>{{.Timestamp}}</small> |
+                <a href="/post/{{.Id.Hex}}">Comment</a>
+            </div>
+        </div>
+        {{end}}
+        {{end}}
+        
+
+{{template "footer" .}}
