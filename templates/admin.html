@@ -1,0 +1,58 @@
+{{ template "header" .}}
+<h1 class="card" style="max-width: 500px; width: 100%;">Admin Panel</h1>
+<div class="card text-bg-light mb-3" style="border-radius: 50px; max-width: 500px; width: 100%;">
+    <a href="/logout" class="link link-dark">
+    <div class="card-body"><b>
+        <p class="card-text">Logout</p></b>
+    </div>
+    </a>
+</div>
+
+<br>
+<div class="card" style="max-width: 500px; width: 100%; padding-left: 5px; padding-right: 5px;">
+<h1>Link</h1>
+<form action="/link" method="post">
+    <input type="text" name="name" placeholder="name" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+    <input type="url" name="uri" placeholder="uri" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+    <input type="submit" value="Create" class="btn btn-dark" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+</form><hr>
+
+<h1>Delete Link</h1>
+<form action="/deletelink" method="post">
+    <input type="text" name="linkId" placeholder="link id" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+    <input type="submit" value="Delete" class="btn btn-dark" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+</form>
+</div>
+
+<br>
+<div class="card" style="max-width: 500px; width: 100%; padding-left: 5px; padding-right: 5px;">
+<h1>Post</h1>
+<form action="/post" method="post">
+    <textarea name="content" id="" cols="30" rows="10" style="width: 100%; max-width: 500px; max-height: 150px; margin-bottom: 5px;" placeholder="comment" class="form-control"></textarea><br>
+    <input type="submit" value="Create" class="btn btn-dark" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+</form><hr>
+
+<h1>Delete Post</h1>
+<form action="/deletepost" method="post">
+    <input type="text" name="postId" placeholder="post id" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+    <input type="submit" value="Delete" class="btn btn-dark" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+</form>
+</div>
+<br>
+
+<div class="card" style="max-width: 500px; width: 100%; padding-left: 5px; padding-right: 5px;">
+<h1>Announce</h1>
+<form action="/announce" method="post">
+    <textarea name="content" id="" cols="30" rows="10" style="width: 100%; max-width: 500px; max-height: 150px; margin-bottom: 5px;" placeholder="comment" class="form-control"></textarea><br>
+    <input type="datetime" name="expires" placeholder="expires" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+
+    <input type="submit" value="Submit" class="btn btn-dark" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+</form><br>
+<form action="/announce/remove" method="post">
+    <input type="submit" value="Remove announce" class="btn btn-dark" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+</form>
+</div>
+
+<br>
+
+{{ template "footer" .}}

@@ -3,18 +3,21 @@
         <h1 class="card"><b>Blog Post</b></h1>
         <!-- Blog post -->
         <div class="card text-bg-light mb-3">
-            <!-- <div class="card-header"><b>Title 1</b></div> -->
             <div class="card-body">
-                <p class="card-text">{{.post.Content}}</p>
+                <p class="card-text" id="content-{{.post.Id.Hex}}">{{.post.Content}}</p>
             </div>
+            <script>
+            document.getElementById('content-{{.post.Id.Hex}}').innerHTML = marked.parse("{{.post.Content}}")
+            </script>
             <div class="card-footer text-body-secondary">
                 <small>{{.post.Timestamp}}</small>
             </div>
         </div>
 {{end}}
 <br>
-<div style="background-color: white; padding: 5px;" class="card">
-<form action="/comment/{id}" method="post">
+<div style="background-color: white; padding: 5px; max-width: 500px; width: 100%;" class="card">
+<form action="/comment/{{.post.Id.Hex}}" method="post">
+    <h1>Publish Comment</h1>
     <input type="email" name="email" placeholder="email" style="width: 100%; max-width: 500px; margin-bottom: 5px; border-radius: 0px;" class="form-control">
     <input type="text" name="name" placeholder="name" style="width: 100%; max-width: 500px; margin-bottom: 5px; border-radius: 0px;" class="form-control">
     <textarea name="content" id="" cols="30" rows="10" style="width: 100%; max-width: 500px; max-height: 150px; margin-bottom: 5px; border-radius: 0px;" placeholder="comment" class="form-control"></textarea>
@@ -22,16 +25,20 @@
 </form>
 </div>
 <br>
+
+{{if .comments}}
 <h1 class="card">Comments</h1>
+{{range .comments}}
 
 <div class="card text-bg-light mb-3">
-    <div class="card-header"><b>Name</b></div>
+    <div class="card-header"><b>{{.Name}}</b></div>
     <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text">{{.Content}}</p>
     </div>
     <div class="card-footer text-body-secondary">
-        <small>timestamp</small>
+        <small>{{.Timestamp}}</small>
     </div>
 </div>
-
+{{end}}
+{{end}}
 {{ template "footer" .}}

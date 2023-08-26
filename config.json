@@ -6,6 +6,7 @@
     "api": {
         "addr": "0.0.0.0:5000",
         "logLevel": "debug",
-        "jwtSecret": "9bd7876411284f1393d22df9fa334f32"
+        "jwtSecret": "9bd7876411284f1393d22df9fa334f32",
+        "cookieSecret": "avd8d76f3n2v411b93a22sf9gk3h4f22"
     }
 }

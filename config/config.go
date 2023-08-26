@@ -14,10 +14,11 @@ type config struct {
 		DbName string `json:"dbName"`
 	} `json:"db"`
 	Api struct {
-		Addr      string `json:"addr"`
-		LogLevel  string `json:"logLevel"`
-		JwtSecret string `json:"jwtSecret"`
-	}
+		Addr         string `json:"addr"`
+		LogLevel     string `json:"logLevel"`
+		JwtSecret    string `json:"jwtSecret"`
+		CookieSecret string `json:"cookieSecret"`
+	} `json:"api"`
 }
 
 type ConfigParser interface {

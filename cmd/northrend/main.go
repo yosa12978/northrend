@@ -6,12 +6,15 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/gin-gonic/gin"
 	"github.com/yosa12978/northrend/config"
 	"github.com/yosa12978/northrend/db"
 	"github.com/yosa12978/northrend/server"
 )
 
 func init() {
+	gin.SetMode(gin.ReleaseMode)
+
 	config.NewJsonConfigParser("config.json").Parse()
 }
 

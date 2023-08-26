@@ -52,7 +52,7 @@ func (repo *commentRepoMongo) GetComments(postId string) ([]domain.Comment, erro
 
 func (repo *commentRepoMongo) Create(comment domain.Comment) (string, error) {
 	res, err := repo.db.Collection("comments").InsertOne(context.TODO(), comment)
-	return res.InsertedID.(string), err
+	return res.InsertedID.(primitive.ObjectID).Hex(), err
 }
 
 func (repo *commentRepoMongo) Delete(id string) (string, error) {

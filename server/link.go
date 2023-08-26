@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -28,7 +27,19 @@ func (s *Server) Portal() func(ctx *gin.Context) {
 			ctx.Abort()
 			return
 		}
-		fmt.Printf("redirecting to %s\n", uri)
 		ctx.Redirect(http.StatusFound, uri)
+	}
+}
+
+func (s *Server) DeleteLink() func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		id := ctx.PostForm("linkId")
+		_, err := s.linkService.DeleteLink(id)
+		if err != nil {
+			ctx.String(404, "link not found")
+			ctx.Abort()
+			return
+		}
+		ctx.Redirect(302, "/admin")
 	}
 }

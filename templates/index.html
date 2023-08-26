@@ -5,7 +5,7 @@
               <img src="/assets/me.jpg" style="max-width: 100px; max-height: 100px; height: 100%; width: 100%; border-radius: 50px;"></img>
               <br><br>
               <h6 class="card-subtitle mb-2 text-body-secondary">Yusuf Yakubov</h6>
-              <p class="card-text">Hi! My name is Yusuf and you are on my personal website</p>
+              <p class="card-text"></p>
               
             </div>
           </div>
@@ -26,7 +26,7 @@
         {{if .links}}
         {{range .links}}
         <div class="card text-bg-light mb-3" style="border-radius: 50px;">
-            <a href="/portal/?uri={{.Uri}}" class="link link-dark">
+            <a href="/portal/?uri={{.Uri}}" target="_blank" class="link link-dark">
             <div class="card-body"><b>
                 <p class="card-text">{{.Name}}</p></b>
             </div>
@@ -43,13 +43,17 @@
         <div class="card text-bg-light mb-3">
             <!-- <div class="card-header"><b>Title 1</b></div> -->
             <div class="card-body">
-                <p class="card-text">{{.Content}}</p>
+                <p class="card-text" id="content-{{.Id.Hex}}">{{.Content}}</p>
             </div>
+            <script>
+            document.getElementById('content-{{.Id.Hex}}').innerHTML = marked.parse("{{.Content}}")
+            </script>
             <div class="card-footer text-body-secondary">
-                <small>{{.Timestamp}}</small> |
+                <small id="timestamp-{{.Id.Hex}}">{{.Timestamp}}</small> |
                 <a href="/post/{{.Id.Hex}}">Comment</a>
             </div>
         </div>
+        
         {{end}}
         {{end}}
         

@@ -15,8 +15,10 @@ func (s *Server) GetPost() func(ctx *gin.Context) {
 			ctx.Abort()
 			return
 		}
+		comments, _ := s.commentService.GetComments(ctx.Param("id"))
 		ctx.HTML(http.StatusOK, "post.html", gin.H{
-			"post": post,
+			"post":     post,
+			"comments": comments,
 		})
 	}
 }
@@ -27,5 +29,18 @@ func (s *Server) CreatePost() func(ctx *gin.Context) {
 		post := domain.NewPost(content)
 		s.postService.CreatePost(post)
 		ctx.Redirect(302, "/")
+	}
+}
+
+func (s *Server) DeletePost() func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		id := ctx.PostForm("postId")
+		_, err := s.postService.DeletePost(id)
+		if err != nil {
+			ctx.String(404, "post not found")
+			ctx.Abort()
+			return
+		}
+		ctx.Redirect(302, "/admin")
 	}
 }

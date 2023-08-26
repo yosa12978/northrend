@@ -1,0 +1,14 @@
+{{ template "header" .}}
+
+<div class="card" style="max-width: 500px; width: 100%; padding-left: 5px; padding-right: 5px;">
+
+    <h1>Login</h1>
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder="username" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+        <input type="password" name="password" placeholder="password" style="width: 100%; max-width: 500px; margin-bottom: 5px;" class="form-control"><br>
+        <input type="submit" value="Login" class="btn btn-dark" style="width: 100%; max-width: 500px; margin-bottom: 5px;">
+    </form>
+    <br>
+</div>
+
+{{ template "footer" .}}
