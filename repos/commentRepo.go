@@ -16,6 +16,7 @@ type CommentRepo interface {
 	GetComments(postId string) ([]domain.Comment, error)
 	Create(comment domain.Comment) (string, error)
 	Delete(id string) (string, error)
+	GetCommentsPaginated(postId string, page, limit int) (domain.Page[domain.Comment], error)
 }
 
 type commentRepoMongo struct {
@@ -62,4 +63,23 @@ func (repo *commentRepoMongo) Delete(id string) (string, error) {
 	}
 	_, err = repo.db.Collection("comments").DeleteOne(context.TODO(), bson.M{"_id": objid})
 	return id, err
+}
+
+func (repo *commentRepoMongo) GetCommentsPaginated(postId string, page, limit int) (domain.Page[domain.Comment], error) {
+	var comments []domain.Comment
+	objid, err := primitive.ObjectIDFromHex(postId)
+	if err != nil {
+		return domain.NewPage(comments, false, false), err
+	}
+
+	copts := options.Count().SetHint("_id")
+	total, _ := repo.db.Collection("comments").CountDocuments(context.TODO(), bson.M{}, copts)
+
+	fopts := domain.NewMongoPaginate(limit, page).GetPageOpts()
+	cursor, _ := repo.db.Collection("comments").Find(context.TODO(), bson.M{"postId": objid}, fopts)
+	err = cursor.All(context.TODO(), &comments)
+
+	res := domain.NewPage(comments, int64(page) < ((total/int64(limit))+1), page > 1)
+
+	return res, err
 }

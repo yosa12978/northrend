@@ -12,7 +12,7 @@ func Logger() func(ctx *gin.Context) {
 		startTime := time.Now().UnixNano()
 		ctx.Next()
 		latency := time.Now().UnixNano() - startTime
-		logger := services.NewConsoleLogger("request")
+		logger := services.NewConsoleLogger("IncomingRequest")
 		logger.Fields(map[string]interface{}{
 			"method":   ctx.Request.Method,
 			"endpoint": ctx.Request.RequestURI,

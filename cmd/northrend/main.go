@@ -10,6 +10,7 @@ import (
 	"github.com/yosa12978/northrend/config"
 	"github.com/yosa12978/northrend/db"
 	"github.com/yosa12978/northrend/server"
+	"github.com/yosa12978/northrend/services"
 )
 
 func init() {
@@ -26,7 +27,7 @@ func main() {
 	db.GetDB()
 	serv := server.NewServer()
 	go serv.Listen(listener)
-
+	services.NewConsoleLogger("server").Info("Server started")
 	out := make(chan os.Signal, 1)
 	signal.Notify(out, os.Interrupt, syscall.SIGTERM)
 	<-out

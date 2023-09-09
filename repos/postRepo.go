@@ -16,6 +16,7 @@ type PostRepo interface {
 	CreatePost(post domain.Post) (string, error)
 	DeletePost(id string) (string, error)
 	GetPost(id string) (domain.Post, error)
+	GetPostsPaginated(page, limit int) domain.Page[domain.Post]
 }
 
 type postRepoMongo struct {
@@ -58,4 +59,19 @@ func (repo *postRepoMongo) GetPost(id string) (domain.Post, error) {
 	}
 	err = repo.db.Collection("posts").FindOne(context.TODO(), bson.M{"_id": objid}).Decode(&post)
 	return post, err
+}
+
+func (repo *postRepoMongo) GetPostsPaginated(page, limit int) domain.Page[domain.Post] {
+	var posts []domain.Post
+	fopts := domain.NewMongoPaginate(limit, page).GetPageOpts()
+
+	copts := options.Count().SetHint("_id")
+	total, _ := repo.db.Collection("posts").CountDocuments(context.TODO(), bson.M{}, copts)
+
+	cursor, _ := repo.db.Collection("posts").Find(context.TODO(), bson.M{}, fopts)
+	cursor.All(context.TODO(), &posts)
+
+	res := domain.NewPage(posts, int64(page) < ((total/int64(limit))+1), page > 1)
+
+	return res
 }
